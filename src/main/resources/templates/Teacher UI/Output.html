@@ -6,52 +6,8 @@
     <title>Points & Scores - Apex</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKx3b5f/eA/CsdWCqmniJnM9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="Output.css">
 
-    <style>
-        /* Base Layout Styles */
-        #wrapper { overflow-x: hidden; }
-        #sidebar-wrapper {
-            min-height: 100vh;
-            margin-left: -15rem;
-            transition: margin 0.25s ease-out;
-            width: 15rem;
-            flex-shrink: 0;
-        }
-        #sidebar-wrapper .sidebar-heading { padding: 0.875rem 1.25rem; font-size: 1.2rem; }
-        #sidebar-wrapper .list-group { width: 15rem; }
-        #page-content-wrapper { min-width: 100vw; }
-        .main-content { background-color: #f8f9fa; }
-
-        /* Sidebar Navigation Styles */
-        .sidebar-nav a {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            border-left: 3px solid transparent;
-        }
-        .sidebar-nav a:hover { color: #0d6efd !important; }
-        .sidebar-section-title { font-size: 0.7rem; font-weight: bold; }
-
-        /* Active Link Styling */
-        /* Since "Scores" isn't a dedicated top-level section, we'll activate "Students" or create a new "Scores" link */
-        .sidebar-nav a.scores-active {
-            color: #0d6efd !important;
-            background-color: #e9ecef !important;
-            border-left: 3px solid #0d6efd;
-        }
-
-        /* --- Custom Score Input Styles --- */
-        .score-form-card {
-            border: 1px dashed #dee2e6; /* Dotted border to highlight the input area */
-        }
-
-        /* Toggle State */
-        body.toggled #wrapper #sidebar-wrapper { margin-left: 0; }
-        @media (min-width: 768px) {
-            #sidebar-wrapper { margin-left: 0; }
-            #page-content-wrapper { min-width: 0; width: 100%; }
-            body.toggled #wrapper #sidebar-wrapper { margin-left: -15rem; }
-        }
-    </style>
 </head>
 <body>
 
