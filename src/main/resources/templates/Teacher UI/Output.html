@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Points & Scores - Apex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKx3b5f/eA/CsdWCqmniJnM9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Base Layout Styles */
+        #wrapper { overflow-x: hidden; }
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem;
+            transition: margin 0.25s ease-out;
+            width: 15rem;
+            flex-shrink: 0;
+        }
+        #sidebar-wrapper .sidebar-heading { padding: 0.875rem 1.25rem; font-size: 1.2rem; }
+        #sidebar-wrapper .list-group { width: 15rem; }
+        #page-content-wrapper { min-width: 100vw; }
+        .main-content { background-color: #f8f9fa; }
+
+        /* Sidebar Navigation Styles */
+        .sidebar-nav a {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-nav a:hover { color: #0d6efd !important; }
+        .sidebar-section-title { font-size: 0.7rem; font-weight: bold; }
+
+        /* Active Link Styling */
+        /* Since "Scores" isn't a dedicated top-level section, we'll activate "Students" or create a new "Scores" link */
+        .sidebar-nav a.scores-active {
+            color: #0d6efd !important;
+            background-color: #e9ecef !important;
+            border-left: 3px solid #0d6efd;
+        }
+
+        /* --- Custom Score Input Styles --- */
+        .score-form-card {
+            border: 1px dashed #dee2e6; /* Dotted border to highlight the input area */
+        }
+
+        /* Toggle State */
+        body.toggled #wrapper #sidebar-wrapper { margin-left: 0; }
+        @media (min-width: 768px) {
+            #sidebar-wrapper { margin-left: 0; }
+            #page-content-wrapper { min-width: 0; width: 100%; }
+            body.toggled #wrapper #sidebar-wrapper { margin-left: -15rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+    <div class="bg-white border-end sidebar-wrapper" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom text-center py-4">
+            <img src="https://via.placeholder.com/30x30/9b59b6/ffffff?text=P" alt="Our Logo" class="me-2 rounded-circle">
+            <span class="fw-bold fs-5 text-dark">Apex</span>
+        </div>
+        <div class="list-group list-group-flush sidebar-nav">
+            <div class="sidebar-section-title px-4 py-2 text-muted text-uppercase small">Tool</div>
+            <a href="index.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-home me-2"></i> Dashboard
+            </a>
+            <a href="groups.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-box-open me-2"></i> Groups
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-transparent text-dark scores-active">
+                <i class="fas fa-check-double me-2"></i> Scores
+            </a>
+            <a href="students.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-user-graduate me-2"></i> Students
+            </a>
+            <a href="outputs.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-chart-line me-2"></i> Outputs
+            </a>
+            <a href="events.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-calendar-alt me-2"></i> Events
+            </a>
+            <a href="chat.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-comment-dots me-2"></i> Chat
+            </a>
+        </div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                <form class="d-none d-md-flex ms-auto me-3 my-2 my-lg-0">
+                    <div class="input-group">
+                        <input class="form-control border-0" type="search" placeholder="Search students/assignments..." aria-label="Search">
+                        <button class="btn btn-outline-secondary border-0" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://via.placeholder.com/30x30/f0e68c/000000?text=U" alt="User Avatar" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Settings</a></li>
+                            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid px-4 py-4 main-content">
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h1 class="fs-3 fw-bold mb-0">Points & Scores Management</h1>
+            </div>
+            <p class="text-muted mb-4">Record and send scores to students.</p>
+
+            <div class="row g-4">
+
+                <div class="col-lg-5">
+                    <div class="card shadow-sm score-form-card h-100">
+                        <div class="card-header bg-white border-bottom-0">
+                            <h5 class="mb-0 fs-5 fw-bold"><i class="fas fa-edit me-2 text-primary"></i>Enter New Score</h5>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="groupSelect" class="form-label fw-bold">Select Group/Class</label>
+                                    <select class="form-select" id="groupSelect" required>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="studentSelect" class="form-label fw-bold">Select Student</label>
+                                    <select class="form-select" id="studentSelect" required>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="assignmentName" class="form-label fw-bold">Output Name</label>
+                                    <input type="text" class="form-control" id="assignmentName" placeholder="Midterm Exam" required>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label for="scoreReceived" class="form-label fw-bold">Score Received</label>
+                                        <input type="number" class="form-control" id="scoreReceived" min="0" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="scoreMax" class="form-label fw-bold">Max Points (Out of)</label>
+                                        <input type="number" class="form-control" id="scoreMax" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Bonus Points</label>
+                                    <input type="number" class="form-control"  min="1" required>
+                                </div>
+
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="sendEmailCheckbox" checked>
+                                    <label class="form-check-label" for="sendEmailCheckbox">
+                                        Send email notification to student
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 shadow-sm">
+                                    <i class="fas fa-paper-plane me-2"></i> Submit & Send Score
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-header bg-white border-bottom-0">
+                            <h5 class="mb-0 fs-5 fw-bold"><i class="fas fa-table me-2 text-secondary"></i>Latest Scores Summary</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col">Output</th>
+                                        <th scope="col">Score</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="#" class="small text-decoration-none">View Full Gradebook <i class="fas fa-arrow-right small"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

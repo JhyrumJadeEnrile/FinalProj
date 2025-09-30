@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Calendar - Apex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKx3b5f/eA/CsdWCqmniJnM9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Highlight the active link for the Events page */
+        .sidebar-nav a.events-active {
+            color: #0d6efd !important;
+            background-color: #e9ecef !important;
+            border-left: 3px solid #0d6efd;
+        }
+
+        /* Custom style for the large calendar placeholder */
+        .calendar-placeholder {
+            min-height: 500px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 1.2rem;
+        }
+
+        /* Style for event list items */
+        .event-item {
+            border-bottom: 1px solid #eee;
+            padding: 0.75rem 0;
+        }
+        .event-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+    <div class="bg-white border-end sidebar-wrapper" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom text-center py-4">
+            <img src="https://via.placeholder.com/30x30/9b59b6/ffffff?text=P" alt="Our Logo" class="me-2 rounded-circle">
+            <span class="fw-bold fs-5 text-dark">Apex</span>
+        </div>
+        <div class="list-group list-group-flush sidebar-nav">
+            <div class="sidebar-section-title px-4 py-2 text-muted text-uppercase small">Tool</div>
+            <a href="index.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-home me-2"></i> Dashboard
+            </a>
+            <a href="groups.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-box-open me-2"></i> Groups
+            </a>
+            <div class="sidebar-section-title px-4 py-2 text-muted text-uppercase small mt-3">Communications</div>
+            <a href="email.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-envelope me-2"></i> Email
+            </a>
+            <a href="chat.html" class="list-group-item list-group-item-action bg-transparent text-dark">
+                <i class="fas fa-comment-dots me-2"></i> Chat
+            </a>
+        </div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                <form class="d-none d-md-flex ms-auto me-3 my-2 my-lg-0">
+                    <div class="input-group">
+                        <input class="form-control border-0" type="search" placeholder="Search events..." aria-label="Search">
+                        <button class="btn btn-outline-secondary border-0" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://via.placeholder.com/30x30/f0e68c/000000?text=U" alt="User Avatar" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Settings</a></li>
+                            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid px-4 py-4 main-content">
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h1 class="fs-3 fw-bold mb-0">Events & Calendar</h1>
+            </div>
+            <p class="text-muted mb-4">View and schedule important academic and student events.</p>
+
+            <div class="row g-4">
+
+                <div class="col-lg-8">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fs-5 fw-bold">School Calendar</h5>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-chevron-left"></i></button>
+                                <button class="btn btn-sm btn-outline-secondary disabled">October 2024</button>
+                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="calendar-placeholder">
+                                Full Calendar Grid Placeholder
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-header bg-white border-bottom-0">
+                            <h5 class="mb-0 fs-5 fw-bold">Upcoming Events</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center mt-3">
+                                <a href="#" class="small text-decoration-none">View All Events <i class="fas fa-arrow-right small"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>
