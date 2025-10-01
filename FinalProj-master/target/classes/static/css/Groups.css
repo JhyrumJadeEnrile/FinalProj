@@ -1,0 +1,35 @@
+/* Add a style to highlight the active link, similar to the dashboard */
+.sidebar-nav a.groups-active {
+    color: #0d6efd !important;
+    background-color: #e9ecef !important;
+    border-left: 3px solid #0d6efd;
+}
+
+/* Custom styles for the group cards (re-pasted from before for completeness) */
+.group-card .card-body {
+    padding: 1.5rem;
+}
+.group-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    flex-shrink: 0;
+}
+.bg-purple { background-color: #6a0dad; }
+.bg-blue { background-color: #0d6efd; }
+.bg-pink { background-color: #e83e8c; }
+.bg-green { background-color: #28a745; } /* Added a new color */
+
+.group-card .card-body .d-flex.pt-3 a {
+    font-size: 1.2rem;
+    transition: color 0.2s ease-in-out;
+}
+.group-card .card-body .d-flex.pt-3 a:hover {
+    color: #0d6efd !important;
+}
