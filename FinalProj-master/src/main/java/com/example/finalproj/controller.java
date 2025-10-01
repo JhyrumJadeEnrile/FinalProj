@@ -33,6 +33,7 @@ public class controller {
 
     @GetMapping("/Signup")
     public String serveSignupPage() {
+
         return "Login/Signup/signup";
     }
 
